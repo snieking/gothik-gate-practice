@@ -66,7 +66,7 @@ upward velocity. Jump motion follows the selected ballistic parameters,
 ceilings stop ascent, unsupported ledge exits fall, and valid landings stop
 gravity. These corrections remove artificial sliding and wall boosts; they are
 not a reconstruction of Blizzard's private movement solver. Airborne launch
-direction is retained by default, with adjustable air steering for comparison.
+direction is retained by default, with adjustable running-jump air steering for comparison.
 
 There is no correct-angle trigger, shortcut through the bars, or modified
 opening that awards a success. Success requires reaching the ledge and landing
@@ -82,6 +82,26 @@ camera, and starting position in Era before relying on training transfer. The
 [reference video](https://www.youtube.com/watch?v=cRF7w0OOX-U) demonstrates the
 route but does not establish numeric contact tolerances or input timing.
 
+## Standing jump and W tap
+
+Press **Space first** while standing still, then briefly tap **W** after takeoff.
+The first forward input starts a small drift that continues after W is released.
+Pressing W before Space produces a running jump instead. The controller preserves
+this key order even when both events arrive in the same browser frame.
+
+Standing-jump input works with forward, backward and strafe movement. It
+initiates a reduced horizontal speed rather than granting every running jump
+full air steering. The provisional nudge speed is **1 yd/s**, adjustable in
+Calibration. This number is not a verified Era constant and was not chosen by
+searching for a successful gate-jump profile. Exact drift speed and buff scaling
+still require live measurements. The user's observed release behavior confirms
+that the drift should continue until landing.
+
+The [jump research](research/jump-w-tap.md) cites firsthand Classic ledge reports,
+current client bindings and the distinct zero-to-nonzero jump-speed case in
+movement validation code. Those sources support implementing the input sequence,
+not claiming a recovered Blizzard contact solver.
+
 ## Compare with Era
 
 **Compare Era** accepts JSON from the optional
@@ -91,7 +111,7 @@ standing on the ledge, jumping from a standstill, a running jump with key releas
 and mouse turning, and a jump into a wall. The addon is passive and has not been
 installed or exercised in the live client by this project.
 
-The browser plots available height or reported speed and overlays the first
+The browser plots available height, horizontal distance or reported speed and overlays the first
 browser jump. A measured run speed can be staged in Calibration before applying.
 Unavailable coordinates remain unavailable. Instance restrictions may prevent a
 height plot; speed and input timing can still be recorded. The tool does not

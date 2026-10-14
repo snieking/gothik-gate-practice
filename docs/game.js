@@ -1,7 +1,7 @@
 import * as THREE from './vendor/three.module.min.js';
-import {CollisionWorld,Character,DEFAULT_PROFILE,PROFILE_LIMITS,sanitizeProfile,CONTROLLER_REVISION} from './physics.js?v=3';
-import {createNightElf} from './character.js?v=3';
-import {setupEraComparison} from './recording.js?v=3';
+import {CollisionWorld,Character,DEFAULT_PROFILE,PROFILE_LIMITS,sanitizeProfile,CONTROLLER_REVISION} from './physics.js?v=5';
+import {createNightElf} from './character.js?v=5';
+import {setupEraComparison} from './recording.js?v=5';
 
 const $=selector=>document.querySelector(selector);
 const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
@@ -155,21 +155,25 @@ function finish() {
   $('#result').hidden=false;updateHUD();
 }
 
-function input() {
+function movementInput() {
   let forward=(keys.has('KeyW')||keys.has('ArrowUp')||mouseButtons===3?1:0)-(keys.has('KeyS')||keys.has('ArrowDown')?1:0);
   let strafe=(keys.has('KeyE')?1:0)-(keys.has('KeyQ')?1:0),turn=0;
   if(mouseButtons&2)strafe+=(keys.has('KeyD')?1:0)-(keys.has('KeyA')?1:0);
   else turn=(keys.has('KeyA')||keys.has('ArrowLeft')?1:0)-(keys.has('KeyD')||keys.has('ArrowRight')?1:0);
-  const jump=jumpPending;jumpPending=false;return {forward,strafe,turn,jump,yaw};
+  return {forward,strafe,turn,yaw};
 }
+function queueJump(){if(!jumpPending)jumpPending=movementInput()}
+function input(){const controls=movementInput(),jumpLaunch=jumpPending||null;jumpPending=false;return {...controls,jump:!!jumpLaunch,jumpLaunch}}
 function tick(dt) {
   const controls=input();
   if(controls.turn){yaw+=controls.turn*profile.turnSpeed*dt;cameraYaw=yaw;controls.yaw=yaw}
   const update=character.step(dt,controls);elapsed+=dt;traceClock+=dt;
   const speed=Math.hypot(character.velocity.x,character.velocity.y);
-  nightElf.update(dt,{...update,grounded:character.grounded,moving:speed>.025,backward:controls.forward<0,
+  const moving=character.grounded?!!(controls.forward||controls.strafe):speed>.025;
+  nightElf.update(dt,{...update,grounded:character.grounded,moving,backward:controls.forward<0,
     speed,yaw,movementAngle:Math.atan2(character.velocity.y,character.velocity.x),verticalSpeed:character.velocity.z,camera});
-  if(update.jumped){traceRecord('jump',{position:character.position.toArray().map(rounded),yaw:rounded(yaw)});log(`Jump ${character.jumps}. Facing ${((yaw*180/Math.PI%360+360)%360).toFixed(1)}°.`)}
+  if(update.jumped){traceRecord('jump',{position:character.position.toArray().map(rounded),yaw:rounded(yaw),launch:controls.jumpLaunch,mode:character.airMode});log(`Jump ${character.jumps}. ${character.airMode==='standing'||character.airMode==='nudge'?'Standing takeoff.':'Running takeoff.'}`)}
+  if(update.nudged)traceRecord('air-nudge',{position:character.position.toArray().map(rounded),yaw:rounded(yaw),speed:rounded(speed)});
   if(update.landed)traceRecord('land',{position:character.position.toArray().map(rounded)});
   if(traceClock>=1/60){traceClock%=1/60;trace.push({t:rounded(elapsed),x:rounded(character.position.x),y:rounded(character.position.y),z:rounded(character.position.z),yaw:rounded(yaw),grounded:character.grounded,input:{forward:controls.forward,strafe:controls.strafe}});if(trace.length>36000)trace.shift()}
   const gate=getGatePosition(),pos=character.position;
@@ -205,16 +209,16 @@ function frame(now) {
 }
 function updateHUD() {
   if(!character)return;
-  const state=status==='paused'?'Paused':status==='complete'?'Gate cleared':status==='ready'?'Ready':character.grounded?'Standing':'Airborne';
+  const state=status==='paused'?'Paused':status==='complete'?'Gate cleared':status==='ready'?'Ready':character.grounded?'Standing':character.airMode==='standing'?'Standing jump':character.airMode==='nudge'?'Jump + W nudge':'Running jump';
   $('#movement-state').textContent=state;$('#elapsed').textContent=clock(elapsed);$('#attempt-number').textContent=`ATTEMPT ${attempt}`;
   $('#heading').textContent=`Facing ${((yaw*180/Math.PI%360+360)%360).toFixed(1)}°`;
   const aboveFloor=character.position.z+33.285;
   $('#height').textContent=`Height ${aboveFloor>=0?'+':''}${aboveFloor.toFixed(2)}`;
   [...$('#checklist').children].forEach((li,i)=>li.classList.toggle('done',[ledgeReached,gapReached,status==='complete'][i]));
-  $('#coach').textContent=gapReached?'Make a small facing adjustment, then jump forward through the seam.':ledgeReached?'Run and jump into the wall/gate seam. Hold right mouse to face the gap.':'Jump onto the stone plinth at the right edge of the gate.';
+  $('#coach').textContent=character.airMode==='standing'?'You are rising straight up. Tap W to start a small forward drift.':gapReached?'Make a small facing adjustment, then jump forward through the seam.':ledgeReached?'Work into the wall/gate seam. Use Space first, then tap W for a short jump.':'Get close to the plinth. Press Space first, then tap W once airborne.';
   $('#pause-button').querySelector('span').textContent=status==='paused'?'▶':'Ⅱ';
   diagnostics.hidden=!$('#diagnostics-toggle').checked;
-  const p=character.position;diagnostics.textContent=`WMO X ${p.x.toFixed(5)}\nWMO Y ${p.y.toFixed(5)}\nWMO Z ${p.z.toFixed(5)}\nVertical ${character.velocity.z.toFixed(4)}\nGrounded ${character.grounded?'yes':'no'}\nContacts ${character.lastContacts.length}\nRadius ${profile.radius.toFixed(3)} · Height ${profile.height.toFixed(3)}\nAnimation ${nightElf.animationName}\nRun speed ${profile.speed.toFixed(2)} yd/s\nFixed step 240 Hz`;
+  const p=character.position;diagnostics.textContent=`WMO X ${p.x.toFixed(5)}\nWMO Y ${p.y.toFixed(5)}\nWMO Z ${p.z.toFixed(5)}\nVertical ${character.velocity.z.toFixed(4)}\nHorizontal ${Math.hypot(character.velocity.x,character.velocity.y).toFixed(4)}\nGrounded ${character.grounded?'yes':'no'}\nJump mode ${character.airMode}\nContacts ${character.lastContacts.length}\nRadius ${profile.radius.toFixed(3)} · Height ${profile.height.toFixed(3)}\nAnimation ${nightElf.animationName}\nRun speed ${profile.speed.toFixed(2)} yd/s\nFixed step 240 Hz`;
   updateMinimap();
 }
 function updateMinimap() {
@@ -247,7 +251,7 @@ function openDialog(dialog){if(status==='running')pause('dialog');releaseCursor(
 function download(name,value){const url=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 function profileSnapshot(){return {schema:'gothik-calibration-v1',controller:CONTROLLER_REVISION,profile:{...profile},gateOffset:[...gateOffset],sensitivity,cameraMode,startPoint,client:manifest?.client}}
 const speedPreset=value=>{const preset=[7,8.4,9.1,9.31,9.52].find(n=>Math.abs(n-value)<.001);return preset===undefined?'custom':String(preset)};
-const fieldNames={speed:['Run speed','yd/s'],backwardSpeed:['Backward speed','yd/s'],jumpSpeed:['Jump velocity','unverified · yd/s'],gravity:['Gravity','emulator reference'],radius:['Collider radius','unverified · yd'],height:['Collider height','unverified · yd'],stepHeight:['Step height','unverified · yd'],slopeDegrees:['Ground slope limit','unverified · degrees'],skin:['Contact margin','unverified · yd'],groundSnap:['Ground snap','unverified · yd'],airSteering:['Air steering','0 locked · 1 responsive'],turnSpeed:['Keyboard turn rate','radians/s']};
+const fieldNames={speed:['Run speed','yd/s'],backwardSpeed:['Backward speed','yd/s'],jumpSpeed:['Jump velocity','unverified · yd/s'],gravity:['Gravity','emulator reference'],radius:['Collider radius','unverified · yd'],height:['Collider height','unverified · yd'],stepHeight:['Step height','unverified · yd'],slopeDegrees:['Ground slope limit','unverified · degrees'],skin:['Contact margin','unverified · yd'],groundSnap:['Ground snap','unverified · yd'],standingAirSpeed:['Standing jump nudge speed','provisional · yd/s'],airSteering:['Running jump air steering','0 locked · 1 responsive'],turnSpeed:['Keyboard turn rate','radians/s']};
 function renderProfileFields(draft={}){
   const values=draft.profile||profile,offset=draft.gateOffset||gateOffset;
   $('#profile-fields').replaceChildren(...Object.keys(DEFAULT_PROFILE).map(key=>{const label=document.createElement('label');label.append(document.createTextNode(fieldNames[key][0]));const input=document.createElement('input');input.id=`profile-${key}`;input.type='number';input.value=String(values[key]);input.min=PROFILE_LIMITS[key][0];input.max=PROFILE_LIMITS[key][1];input.step=['skin','groundSnap'].includes(key)?'.001':['radius','height','stepHeight','airSteering'].includes(key)?'.01':'.1';const small=document.createElement('small');small.textContent=fieldNames[key][1];label.append(input,small);return label}));
@@ -281,7 +285,7 @@ document.addEventListener('keydown',event=>{
   if(code==='KeyT'){toggleTrace();return}
   if(code==='Escape'){if(status==='running')pause();return}
   if(status!=='running')return;
-  keys.add(code);traceRecord('key-down',{code});if(code==='Space')jumpPending=true;
+  keys.add(code);traceRecord('key-down',{code});if(code==='Space')queueJump();
 });
 document.addEventListener('keyup',event=>{if(keys.delete(event.code)&&status==='running')traceRecord('key-up',{code:event.code})});
 const canvas=$('#scene');
@@ -319,7 +323,7 @@ $('#opening-speed').addEventListener('change',event=>{if(event.target.value==='c
 $('#speed-preset').addEventListener('change',event=>{if(event.target.value!=='custom')$('#profile-speed').value=event.target.value});
 $('#reset-button').addEventListener('click',()=>reset(true));$('#retry-button').addEventListener('click',()=>reset(true));
 $('#pause-button').addEventListener('click',()=>status==='running'?pause():resume());$('#camera-button').addEventListener('click',cycleCamera);
-$('#trace-button').addEventListener('click',()=>toggleTrace());$('#jump-button').addEventListener('click',()=>{if(status==='running')jumpPending=true});
+$('#trace-button').addEventListener('click',()=>toggleTrace());$('#jump-button').addEventListener('click',()=>{if(status==='running')queueJump()});
 $('#result-trace-button').addEventListener('click',()=>{$('#result').hidden=true;toggleTrace(true);cameraMode='overview';$('#camera-select').value=cameraMode;toast('Last attempt path. Press R for another attempt.')});
 $('#guide-button').addEventListener('click',()=>openDialog($('#guide')));
 $('#calibration-button').addEventListener('click',()=>{renderProfileFields();openDialog($('#calibration'))});

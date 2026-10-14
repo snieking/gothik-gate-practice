@@ -5,14 +5,14 @@ import {Vector3, Triangle} from './vendor/three.module.min.js';
 export const DEFAULT_PROFILE = Object.freeze({
   speed:9.1, backwardSpeed:4.5, jumpSpeed:7.9555, gravity:19.2911,
   radius:0.27777779, height:2.25, stepHeight:0.4, slopeDegrees:50,
-  skin:0.002, groundSnap:0.05, airSteering:0, turnSpeed:2.3,
+  skin:0.002, groundSnap:0.05, standingAirSpeed:1, airSteering:0, turnSpeed:2.3,
 });
-export const CONTROLLER_REVISION='ground-support-v2';
+export const CONTROLLER_REVISION='standing-jump-v3';
 export const PROFILE_LIMITS = Object.freeze({
   speed:[1,15], backwardSpeed:[1,15], jumpSpeed:[3,14], gravity:[8,40],
   radius:[0.12,0.8], height:[1,3.5], stepHeight:[0,0.8],
   slopeDegrees:[20,70], skin:[0.0001,0.03], groundSnap:[0.005,0.2],
-  airSteering:[0,1], turnSpeed:[0.5,5],
+  standingAirSpeed:[0.1,4], airSteering:[0,1], turnSpeed:[0.5,5],
 });
 export function sanitizeProfile(candidate={}) {
   if(!candidate||typeof candidate!=='object')candidate={};
@@ -250,6 +250,7 @@ export class Character {
   }
   reset(start) {
     this.position.set(...start);this.velocity.set(0,0,0);this.jumps=0;
+    this.airMode='grounded';
     this.lastContacts=this.world.resolveHorizontal(this.position,this.profile,this.position.clone());
     const support=this.world.supportAt(this.position,this.profile,0.4,0.25);
     this.grounded=!!support;
@@ -262,13 +263,30 @@ export class Character {
     const speed=forward<0?p.backwardSpeed:p.speed;
     const desired=new Vector3(Math.cos(input.yaw)*forward+Math.sin(input.yaw)*strafe,
       Math.sin(input.yaw)*forward-Math.cos(input.yaw)*strafe,0).multiplyScalar(speed*scale);
-    if(this.grounded) {this.velocity.x=desired.x;this.velocity.y=desired.y;}
-    else if(p.airSteering>0) {
+    let jumped=false,nudged=false;
+    if(input.jump&&this.grounded) {
+      // Preserve the motion present when Space was pressed. A later W event
+      // in the same browser frame must not turn this into a running takeoff.
+      const launch=input.jumpLaunch||input,lf=launch.forward||0,ls=launch.strafe||0;
+      const length=Math.hypot(lf,ls),launchSpeed=lf<0?p.backwardSpeed:p.speed;
+      const facing=Number.isFinite(launch.yaw)?launch.yaw:input.yaw,normalize=length>1?1/length:1;
+      this.velocity.set((Math.cos(facing)*lf+Math.sin(facing)*ls)*launchSpeed*normalize,
+        (Math.sin(facing)*lf-Math.cos(facing)*ls)*launchSpeed*normalize,p.jumpSpeed);
+      this.airMode=length>0?'running':'standing';
+      this.grounded=false;this.jumps++;jumped=true;
+    } else if(this.grounded) {this.velocity.x=desired.x;this.velocity.y=desired.y;}
+    if(!this.grounded&&this.airMode==='standing'&&magnitude>0) {
+      // Classic distinguishes horizontal initiation after a standing jump
+      // from a running jump's launch momentum. The speed remains calibratable;
+      // 1 yd/s is a provisional starting value, not a recovered client constant.
+      const horizontal=Math.min(p.standingAirSpeed,desired.length());
+      this.velocity.x=desired.x/desired.length()*horizontal;
+      this.velocity.y=desired.y/desired.length()*horizontal;
+      this.airMode='nudge';nudged=true;
+    } else if(!this.grounded&&!jumped&&this.airMode==='running'&&p.airSteering>0) {
       const blend=1-Math.exp(-p.airSteering*24*dt);
       this.velocity.x+=(desired.x-this.velocity.x)*blend;this.velocity.y+=(desired.y-this.velocity.y)*blend;
     }
-    let jumped=false;
-    if(input.jump&&this.grounded) {this.velocity.z=p.jumpSpeed;this.grounded=false;this.jumps++;jumped=true;}
     this.position.x+=this.velocity.x*dt;this.position.y+=this.velocity.y*dt;
     const attempted=this.position.clone();
     let contacts=this.world.resolveHorizontal(this.position,p,previous);
@@ -302,6 +320,9 @@ export class Character {
       contacts.push(...this.world.resolveHorizontal(this.position,p,previous));
     }
     this.lastContacts=contacts;
-    return {jumped,landed:!wasGrounded&&this.grounded,contacts};
+    const landed=!wasGrounded&&this.grounded;
+    if(this.grounded)this.airMode='grounded';
+    else if(wasGrounded&&!jumped)this.airMode='running';
+    return {jumped,nudged,landed,contacts};
   }
 }
