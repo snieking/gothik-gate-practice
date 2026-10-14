@@ -5,3 +5,5 @@ raw-client-assets/
 .client-work/
 *.tar.gz
 *.log
+__pycache__/
+*.pyc

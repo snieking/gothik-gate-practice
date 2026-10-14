@@ -64,3 +64,23 @@ has a rotation of pi radians in the raw WMO basis and scale `0.790041`.
 
 Provenance records source FileDataIDs, byte counts, SHA-256 hashes, the client
 build, parser references, and the gate-placement limitation.
+
+## Night Elf female
+
+`import-character-assets.py` uses the same read-only offline extractor and
+storage view. It exports only NightElfFemale FileDataID 120590, skin 471230,
+the selected original body/hair/eye textures, original green leather texture
+components, and the locomotion/jump animation tracks needed by this trainer.
+The character manifest records source hashes, bone hierarchy, original key times,
+compressed quaternion values, model collision metadata and format references.
+
+After preparing the storage view and reader described above, in fish:
+
+```fish
+python3 scripts/import-character-assets.py --probe .client-work/extract-client-assets --storage .client-work/storage --raw .client-work/character-raw
+```
+
+The browser loader decodes the original 16-bit quaternion keys and skins the
+original mesh. It does not generate replacement character geometry or animations.
+Live animation state transitions and terrain collision still need separate
+measurement.

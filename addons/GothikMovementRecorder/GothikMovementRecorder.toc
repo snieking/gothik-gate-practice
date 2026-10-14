@@ -1,0 +1,7 @@
+## Interface: 11509
+## Title: Gothik Movement Recorder
+## Notes: Manually started, passive Classic Era movement measurements.
+## Author: Sniekin-Pyrewood Village
+## Version: 1.0.0
+## SavedVariables: GothikMovementRecorderDB
+GothikMovementRecorder.lua

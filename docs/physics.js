@@ -3,10 +3,11 @@ import {Vector3, Triangle} from './vendor/three.module.min.js';
 // Original collision triangles remain separate from the visible mesh. This
 // browser controller is a calibratable approximation, not Blizzard's solver.
 export const DEFAULT_PROFILE = Object.freeze({
-  speed:7, backwardSpeed:4.5, jumpSpeed:7.9555, gravity:19.2911,
-  radius:0.15, height:1.95, stepHeight:0.4, slopeDegrees:50,
+  speed:9.1, backwardSpeed:4.5, jumpSpeed:7.9555, gravity:19.2911,
+  radius:0.27777779, height:2.25, stepHeight:0.4, slopeDegrees:50,
   skin:0.002, groundSnap:0.05, airSteering:0, turnSpeed:2.3,
 });
+export const CONTROLLER_REVISION='ground-support-v2';
 export const PROFILE_LIMITS = Object.freeze({
   speed:[1,15], backwardSpeed:[1,15], jumpSpeed:[3,14], gravity:[8,40],
   radius:[0.12,0.8], height:[1,3.5], stepHeight:[0,0.8],
@@ -112,33 +113,6 @@ export class CollisionWorld {
     }
     return Math.sqrt(best);
   }
-  resolve(position,profile,previous=position,iterations=6) {
-    const contacts=[];const radius=profile.radius,margin=radius+profile.skin;
-    for(let pass=0;pass<iterations;pass++) {
-      const candidates=this.query([position.x-margin,position.y-margin,position.z-profile.skin],
-        [position.x+margin,position.y+margin,position.z+profile.height+profile.skin]);
-      let changed=false;
-      for(const id of candidates) {
-        const tri=this.triangles[id];
-        this.bottom.copy(position).add(new Vector3(0,0,radius));
-        this.top.copy(position).add(new Vector3(0,0,profile.height-radius));
-        const distance=this.closestToCapsule(tri,this.bottom,this.top);
-        if(distance>=margin)continue;
-        if(distance>1e-9) this.normal.subVectors(this.closestBody,this.closestMesh).divideScalar(distance);
-        else {
-          this.normal.copy(tri.normal);
-          this.point.copy(previous).add(new Vector3(0,0,profile.height/2)).sub(tri.a);
-          if(this.normal.dot(this.point)<0)this.normal.negate();
-        }
-        const penetration=margin-distance;
-        position.addScaledVector(this.normal,penetration);
-        contacts.push({normal:this.normal.clone(),depth:penetration,triangle:id,name:tri.name});
-        changed=true;
-      }
-      if(!changed)break;
-    }
-    return contacts;
-  }
   groundAt(x,y,top,bottom,slopeDegrees=50) {
     const candidates=this.query([x-1e-4,y-1e-4,bottom],[x+1e-4,y+1e-4,top]);
     let highest=-Infinity;const minNormal=Math.cos(slopeDegrees*Math.PI/180);
@@ -152,6 +126,103 @@ export class CollisionWorld {
       if(this.triangle.containsPoint(this.point))highest=Math.max(highest,this.point.z);
     }
     return highest;
+  }
+  // A downward sweep of the bottom sphere finds support across its footprint.
+  // Face, edge and vertex contacts are solved vertically, keeping X/Y fixed.
+  // Ground contact must not turn gravity into sideways slope motion.
+  supportAt(position,profile,up=0.03,down=0.06) {
+    const radius=profile.radius,margin=radius+profile.skin;
+    const low=position.z-down,high=position.z+up;
+    const candidates=this.query([position.x-margin,position.y-margin,low-profile.skin],
+      [position.x+margin,position.y+margin,high+radius+margin]);
+    const minNormal=Math.cos(profile.slopeDegrees*Math.PI/180);
+    let support=null;
+    const accept=(centerZ,point,tri,id)=>{
+      const feetZ=centerZ-radius;
+      if(feetZ<low-1e-7||feetZ>high+1e-7||centerZ<point.z-1e-7||support&&feetZ<=support.z)return;
+      const normal=new Vector3(position.x-point.x,position.y-point.y,centerZ-point.z).normalize();
+      support={z:feetZ,normal,triangle:id,name:tri.name,depth:0};
+    };
+    for(const id of candidates) {
+      const tri=this.triangles[id];
+      if(Math.abs(tri.normal.z)<minNormal)continue;
+      const n=tri.normal.z<0?tri.normal.clone().negate():tri.normal;
+      const centerZ=tri.a.z-(n.x*(position.x-tri.a.x)+n.y*(position.y-tri.a.y))/n.z+margin/n.z;
+      this.point.set(position.x,position.y,centerZ).addScaledVector(n,-margin);
+      this.triangle.set(tri.a,tri.b,tri.c);
+      if(this.triangle.containsPoint(this.point))accept(centerZ,this.point,tri,id);
+      for(const [a,b] of [[tri.a,tri.b],[tri.b,tri.c],[tri.c,tri.a]]) {
+        const ex=b.x-a.x,ey=b.y-a.y,ez=b.z-a.z,L=ex*ex+ey*ey+ez*ez;
+        if(L<1e-12)continue;
+        const dx=position.x-a.x,dy=position.y-a.y,h=dx*ex+dy*ey;
+        const A=1-ez*ez/L,B=-2*h*ez/L,C=dx*dx+dy*dy-h*h/L-margin*margin;
+        const discriminant=B*B-4*A*C;
+        if(A>1e-10&&discriminant>=0) {
+          const z=(-B+Math.sqrt(discriminant))/(2*A),t=(h+z*ez)/L;
+          if(t>=0&&t<=1){this.point.set(a.x+ex*t,a.y+ey*t,a.z+ez*t);accept(a.z+z,this.point,tri,id)}
+        }
+      }
+      for(const vertex of [tri.a,tri.b,tri.c]) {
+        const d=(position.x-vertex.x)**2+(position.y-vertex.y)**2;
+        if(d<=margin*margin)accept(vertex.z+Math.sqrt(margin*margin-d),vertex,tri,id);
+      }
+    }
+    return support;
+  }
+  resolveHorizontal(position,profile,previous=position) {
+    const contacts=[],radius=profile.radius,margin=radius+profile.skin;
+    const minNormal=Math.cos(profile.slopeDegrees*Math.PI/180);
+    for(let pass=0;pass<6;pass++) {
+      let changed=false;
+      const candidates=this.query([position.x-margin,position.y-margin,position.z-profile.skin],
+        [position.x+margin,position.y+margin,position.z+profile.height+profile.skin]);
+      for(const id of candidates) {
+        const tri=this.triangles[id];
+        this.bottom.set(position.x,position.y,position.z+radius);
+        this.top.set(position.x,position.y,position.z+profile.height-radius);
+        const distance=this.closestToCapsule(tri,this.bottom,this.top);
+        if(distance>=margin-1e-8)continue;
+        if(distance>1e-9)this.normal.subVectors(this.closestBody,this.closestMesh).divideScalar(distance);
+        else {
+          this.normal.copy(tri.normal);
+          this.point.copy(previous).add(new Vector3(0,0,profile.height/2)).sub(tri.a);
+          if(this.normal.dot(this.point)<0)this.normal.negate();
+        }
+        if(Math.abs(tri.normal.z)>=minNormal&&this.normal.z>0)continue;
+        // Head-on floor/ceiling contacts belong to the vertical sweep.
+        if(this.closestBody.z>=position.z+profile.height-radius-1e-6&&this.normal.z<-.25)continue;
+        const horizontal=this.normal.x*this.normal.x+this.normal.y*this.normal.y;
+        if(horizontal<1e-6)continue;
+        const depth=margin-distance,correction=Math.min(depth/horizontal,margin*2);
+        position.x+=this.normal.x*correction;position.y+=this.normal.y*correction;
+        contacts.push({normal:new Vector3(this.normal.x,this.normal.y,0).normalize(),depth,triangle:id,name:tri.name});
+        changed=true;
+      }
+      if(!changed)break;
+    }
+    return contacts;
+  }
+  ceilingAt(position,profile) {
+    const radius=profile.radius,margin=radius+profile.skin,contacts=[];
+    for(let pass=0;pass<4;pass++) {
+      let changed=false;
+      const candidates=this.query([position.x-margin,position.y-margin,position.z+profile.height-radius-margin],
+        [position.x+margin,position.y+margin,position.z+profile.height+profile.skin]);
+      this.top.set(position.x,position.y,position.z+profile.height-radius);
+      for(const id of candidates) {
+        const tri=this.triangles[id];this.triangle.set(tri.a,tri.b,tri.c);
+        this.triangle.closestPointToPoint(this.top,this.closestMesh);
+        const distance=this.top.distanceTo(this.closestMesh);
+        if(distance>=margin-1e-8||distance<1e-10)continue;
+        this.normal.subVectors(this.top,this.closestMesh).divideScalar(distance);
+        if(this.normal.z>=-.25)continue;
+        const depth=margin-distance;position.z-=depth/-this.normal.z;
+        this.top.z=position.z+profile.height-radius;
+        contacts.push({normal:this.normal.clone(),depth,triangle:id,name:tri.name});changed=true;
+      }
+      if(!changed)break;
+    }
+    return contacts;
   }
   raycast(origin,direction,maxDistance) {
     const end=new Vector3().copy(origin).addScaledVector(direction,maxDistance);
@@ -179,9 +250,10 @@ export class Character {
   }
   reset(start) {
     this.position.set(...start);this.velocity.set(0,0,0);this.jumps=0;
-    this.world.resolve(this.position,this.profile,this.position);
-    const floor=this.world.groundAt(this.position.x,this.position.y,this.position.z+0.1,this.position.z-0.15,this.profile.slopeDegrees);
-    this.grounded=Number.isFinite(floor)&&this.position.z-floor<0.15;
+    this.lastContacts=this.world.resolveHorizontal(this.position,this.profile,this.position.clone());
+    const support=this.world.supportAt(this.position,this.profile,0.4,0.25);
+    this.grounded=!!support;
+    if(support){this.position.z=support.z;this.lastContacts.push(support)}
   }
   step(dt,input) {
     const p=this.profile,previous=this.position.clone(),wasGrounded=this.grounded;
@@ -197,35 +269,37 @@ export class Character {
     }
     let jumped=false;
     if(input.jump&&this.grounded) {this.velocity.z=p.jumpSpeed;this.grounded=false;this.jumps++;jumped=true;}
-    this.velocity.z-=p.gravity*dt;
-    this.position.addScaledVector(this.velocity,dt);
-    let contacts=this.world.resolve(this.position,p,previous);
-    const wall=contacts.some(c=>Math.abs(c.normal.z)<0.35);
-    // Step onto short floor changes while walking. A jump never receives a step.
-    if(wasGrounded&&!jumped&&wall&&p.stepHeight>0&&magnitude>0) {
-      const elevated=previous.clone();elevated.z+=p.stepHeight;
-      elevated.x+=desired.x*dt;elevated.y+=desired.y*dt;
-      const raisedContacts=this.world.resolve(elevated,p,previous);
-      const floor=this.world.groundAt(elevated.x,elevated.y,elevated.z,elevated.z-p.stepHeight-0.06,p.slopeDegrees);
-      if(Number.isFinite(floor)&&floor>previous.z+p.skin&&raisedContacts.every(c=>Math.abs(c.normal.z)>0.35)) {
-        elevated.z=floor+p.skin;this.position.copy(elevated);contacts=raisedContacts;this.velocity.z=0;
+    this.position.x+=this.velocity.x*dt;this.position.y+=this.velocity.y*dt;
+    const attempted=this.position.clone();
+    let contacts=this.world.resolveHorizontal(this.position,p,previous);
+    if(wasGrounded&&!jumped) {
+      this.velocity.z=0;
+      let support=this.world.supportAt(this.position,p,p.stepHeight,p.groundSnap);
+      // A real floor must support a step. A wall alone cannot elevate the actor.
+      if(contacts.length&&magnitude&&p.stepHeight>0) {
+        const elevated=attempted.clone();elevated.z=previous.z+p.stepHeight;
+        const raisedContacts=this.world.resolveHorizontal(elevated,p,previous);
+        const raisedSupport=this.world.supportAt(elevated,p,0,p.stepHeight+p.groundSnap);
+        const progress=point=>(point.x-previous.x)**2+(point.y-previous.y)**2;
+        if(raisedSupport&&raisedSupport.z>previous.z+p.skin&&progress(elevated)>progress(this.position)+1e-10) {
+          this.position.copy(elevated);support=raisedSupport;contacts=raisedContacts;
+        }
       }
+      this.grounded=!!support;
+      if(support){this.position.z=support.z;contacts.push(support)}
     }
-    const minNormal=Math.cos(p.slopeDegrees*Math.PI/180);
-    const airX=this.velocity.x,airY=this.velocity.y;
-    this.grounded=false;
-    for(const contact of contacts) {
-      const n=contact.normal,dot=this.velocity.dot(n);
-      if(dot<0)this.velocity.addScaledVector(n,-dot);
-      if(n.z>=minNormal&&this.velocity.z<=0.2)this.grounded=true;
-    }
-    // Contact clips the attempted displacement. It must not erase the stored
-    // airborne direction, otherwise pushing against the seam stops the entire
-    // jump even after the rising body has cleared that contact.
-    if(!this.grounded){this.velocity.x=airX;this.velocity.y=airY;}
-    if(!jumped&&this.velocity.z<=0&&wasGrounded) {
-      const ground=this.world.groundAt(this.position.x,this.position.y,this.position.z+p.skin,this.position.z-p.groundSnap,p.slopeDegrees);
-      if(Number.isFinite(ground)){this.position.z=ground+p.skin;this.velocity.z=0;this.grounded=true;}
+    if(!this.grounded) {
+      const vertical=this.velocity.z*dt-.5*p.gravity*dt*dt;
+      this.position.z=previous.z+vertical;this.velocity.z-=p.gravity*dt;
+      if(vertical<=0) {
+        const atPreviousHeight=this.position.clone();atPreviousHeight.z=previous.z;
+        const support=this.world.supportAt(atPreviousHeight,p,p.skin,-vertical+p.skin);
+        if(support&&support.z>=this.position.z-p.skin){this.position.z=support.z;this.velocity.z=0;this.grounded=true;contacts.push(support)}
+      } else {
+        const ceilings=this.world.ceilingAt(this.position,p);
+        if(ceilings.length){this.velocity.z=0;contacts.push(...ceilings)}
+      }
+      contacts.push(...this.world.resolveHorizontal(this.position,p,previous));
     }
     this.lastContacts=contacts;
     return {jumped,landed:!wasGrounded&&this.grounded,contacts};
