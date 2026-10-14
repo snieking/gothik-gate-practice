@@ -1,0 +1,1526 @@
+{
+  "schema": "gothik-client-scene-v1",
+  "coordinateSystem": "Original WMO/M2 XYZ, Z up, right-handed",
+  "bufferEndianness": "little",
+  "units": "Original client model units",
+  "textureOrientation": "Unmodified top-down BLP pixels and raw UV; Three.js texture.flipY = false",
+  "client": {
+    "product": "wow_classic_era",
+    "version": "1.15.9.70003",
+    "buildKey": "2417084b8b041ee120d02d4adf31b0bc",
+    "import": "offline local client"
+  },
+  "root": {
+    "fileDataID": 110251,
+    "ambientBGRA": 4282988157,
+    "flags": 0
+  },
+  "meshes": [
+    {
+      "id": "wmo-17",
+      "kind": "wmo",
+      "groupIndex": 17,
+      "groupName": "deathknight05",
+      "groupFlags": 10757,
+      "fileDataID": 110269,
+      "buffer": "wmo-17.bin",
+      "attributes": {
+        "position": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 0,
+          "count": 11534
+        },
+        "normal": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 138408,
+          "count": 11534
+        },
+        "uv": {
+          "type": "Float32",
+          "itemSize": 2,
+          "byteOffset": 276816,
+          "count": 11534
+        },
+        "color": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 369088,
+          "count": 11534
+        }
+      },
+      "index": {
+        "type": "Uint32",
+        "itemSize": 1,
+        "byteOffset": 553632,
+        "count": 40845
+      },
+      "groups": [
+        {
+          "start": 0,
+          "count": 2610,
+          "material": 14,
+          "flags": 0,
+          "firstVertex": 0,
+          "lastVertex": 606
+        },
+        {
+          "start": 2610,
+          "count": 4473,
+          "material": 9,
+          "flags": 0,
+          "firstVertex": 607,
+          "lastVertex": 1472
+        },
+        {
+          "start": 7083,
+          "count": 816,
+          "material": 15,
+          "flags": 0,
+          "firstVertex": 1473,
+          "lastVertex": 1725
+        },
+        {
+          "start": 7899,
+          "count": 258,
+          "material": 35,
+          "flags": 0,
+          "firstVertex": 1726,
+          "lastVertex": 1789
+        },
+        {
+          "start": 8157,
+          "count": 24,
+          "material": 54,
+          "flags": 0,
+          "firstVertex": 1790,
+          "lastVertex": 1805
+        },
+        {
+          "start": 8181,
+          "count": 4884,
+          "material": 17,
+          "flags": 0,
+          "firstVertex": 1806,
+          "lastVertex": 3411
+        },
+        {
+          "start": 13065,
+          "count": 672,
+          "material": 10,
+          "flags": 0,
+          "firstVertex": 3412,
+          "lastVertex": 3563
+        },
+        {
+          "start": 13737,
+          "count": 2961,
+          "material": 12,
+          "flags": 0,
+          "firstVertex": 3564,
+          "lastVertex": 4630
+        },
+        {
+          "start": 16698,
+          "count": 2280,
+          "material": 19,
+          "flags": 0,
+          "firstVertex": 4631,
+          "lastVertex": 5747
+        },
+        {
+          "start": 18978,
+          "count": 1404,
+          "material": 73,
+          "flags": 0,
+          "firstVertex": 5748,
+          "lastVertex": 6159
+        },
+        {
+          "start": 20382,
+          "count": 2892,
+          "material": 29,
+          "flags": 0,
+          "firstVertex": 6160,
+          "lastVertex": 7062
+        },
+        {
+          "start": 23274,
+          "count": 2520,
+          "material": 72,
+          "flags": 0,
+          "firstVertex": 7063,
+          "lastVertex": 7798
+        },
+        {
+          "start": 25794,
+          "count": 93,
+          "material": 37,
+          "flags": 0,
+          "firstVertex": 7799,
+          "lastVertex": 7832
+        },
+        {
+          "start": 25887,
+          "count": 1920,
+          "material": 42,
+          "flags": 0,
+          "firstVertex": 7833,
+          "lastVertex": 8472
+        },
+        {
+          "start": 27807,
+          "count": 2337,
+          "material": 13,
+          "flags": 0,
+          "firstVertex": 8473,
+          "lastVertex": 9251
+        },
+        {
+          "start": 30144,
+          "count": 4395,
+          "material": 11,
+          "flags": 0,
+          "firstVertex": 9252,
+          "lastVertex": 10441
+        },
+        {
+          "start": 34539,
+          "count": 1248,
+          "material": 16,
+          "flags": 0,
+          "firstVertex": 10442,
+          "lastVertex": 10691
+        },
+        {
+          "start": 35787,
+          "count": 282,
+          "material": 21,
+          "flags": 0,
+          "firstVertex": 10692,
+          "lastVertex": 10782
+        },
+        {
+          "start": 36069,
+          "count": 2688,
+          "material": 71,
+          "flags": 0,
+          "firstVertex": 10783,
+          "lastVertex": 11382
+        }
+      ],
+      "bounds": {
+        "min": [
+          240.85044860839844,
+          -147.86656188964844,
+          -33.31464767456055
+        ],
+        "max": [
+          386.72015380859375,
+          0.660753071308136,
+          18.062833786010742
+        ]
+      },
+      "collision": {
+        "position": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 0,
+          "count": 11534
+        },
+        "index": {
+          "type": "Uint32",
+          "itemSize": 1,
+          "byteOffset": 717012,
+          "count": 11934
+        },
+        "triangleFlags": {
+          "type": "Uint8",
+          "itemSize": 1,
+          "byteOffset": 791980,
+          "count": 3978
+        },
+        "bounds": {
+          "min": [
+            240.85044860839844,
+            -147.86656188964844,
+            -33.31464767456055
+          ],
+          "max": [
+            386.72015380859375,
+            0.660753071308136,
+            18.062833786010742
+          ]
+        },
+        "triangleCount": 3978,
+        "policy": "(MOPY.flags & 0x08) || ((flags & 0x20) && !(flags & 0x04))"
+      },
+      "originalTriangleFlags": {
+        "type": "Uint8",
+        "itemSize": 1,
+        "byteOffset": 764748,
+        "count": 13615
+      },
+      "originalTriangleMaterials": {
+        "type": "Uint8",
+        "itemSize": 1,
+        "byteOffset": 778364,
+        "count": 13615
+      },
+      "vertexCount": 11534,
+      "triangleCount": 13615,
+      "rawVertexBGRA": {
+        "type": "Uint8",
+        "itemSize": 4,
+        "byteOffset": 507496,
+        "count": 11534
+      }
+    },
+    {
+      "id": "wmo-38",
+      "kind": "wmo",
+      "groupIndex": 38,
+      "groupName": "district_A22",
+      "groupFlags": 14853,
+      "fileDataID": 110290,
+      "buffer": "wmo-38.bin",
+      "attributes": {
+        "position": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 0,
+          "count": 3938
+        },
+        "normal": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 47256,
+          "count": 3938
+        },
+        "uv": {
+          "type": "Float32",
+          "itemSize": 2,
+          "byteOffset": 94512,
+          "count": 3938
+        },
+        "color": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 126016,
+          "count": 3938
+        }
+      },
+      "index": {
+        "type": "Uint32",
+        "itemSize": 1,
+        "byteOffset": 189024,
+        "count": 14985
+      },
+      "groups": [
+        {
+          "start": 0,
+          "count": 1992,
+          "material": 14,
+          "flags": 0,
+          "firstVertex": 0,
+          "lastVertex": 461
+        },
+        {
+          "start": 1992,
+          "count": 759,
+          "material": 23,
+          "flags": 0,
+          "firstVertex": 462,
+          "lastVertex": 728
+        },
+        {
+          "start": 2751,
+          "count": 1344,
+          "material": 3,
+          "flags": 0,
+          "firstVertex": 729,
+          "lastVertex": 1076
+        },
+        {
+          "start": 4095,
+          "count": 411,
+          "material": 9,
+          "flags": 0,
+          "firstVertex": 1077,
+          "lastVertex": 1181
+        },
+        {
+          "start": 4506,
+          "count": 390,
+          "material": 15,
+          "flags": 0,
+          "firstVertex": 1182,
+          "lastVertex": 1312
+        },
+        {
+          "start": 4896,
+          "count": 1341,
+          "material": 36,
+          "flags": 0,
+          "firstVertex": 1313,
+          "lastVertex": 1588
+        },
+        {
+          "start": 6237,
+          "count": 144,
+          "material": 30,
+          "flags": 0,
+          "firstVertex": 1589,
+          "lastVertex": 1621
+        },
+        {
+          "start": 6381,
+          "count": 480,
+          "material": 8,
+          "flags": 0,
+          "firstVertex": 1622,
+          "lastVertex": 1768
+        },
+        {
+          "start": 6861,
+          "count": 1332,
+          "material": 17,
+          "flags": 0,
+          "firstVertex": 1769,
+          "lastVertex": 2249
+        },
+        {
+          "start": 8193,
+          "count": 1008,
+          "material": 10,
+          "flags": 0,
+          "firstVertex": 2250,
+          "lastVertex": 2477
+        },
+        {
+          "start": 9201,
+          "count": 1854,
+          "material": 12,
+          "flags": 0,
+          "firstVertex": 2478,
+          "lastVertex": 3081
+        },
+        {
+          "start": 11055,
+          "count": 156,
+          "material": 29,
+          "flags": 0,
+          "firstVertex": 3082,
+          "lastVertex": 3155
+        },
+        {
+          "start": 11211,
+          "count": 36,
+          "material": 42,
+          "flags": 0,
+          "firstVertex": 3156,
+          "lastVertex": 3179
+        },
+        {
+          "start": 11247,
+          "count": 147,
+          "material": 6,
+          "flags": 0,
+          "firstVertex": 3180,
+          "lastVertex": 3250
+        },
+        {
+          "start": 11394,
+          "count": 24,
+          "material": 7,
+          "flags": 0,
+          "firstVertex": 3251,
+          "lastVertex": 3260
+        },
+        {
+          "start": 11418,
+          "count": 213,
+          "material": 22,
+          "flags": 0,
+          "firstVertex": 3261,
+          "lastVertex": 3322
+        },
+        {
+          "start": 11631,
+          "count": 1470,
+          "material": 11,
+          "flags": 0,
+          "firstVertex": 3323,
+          "lastVertex": 3781
+        },
+        {
+          "start": 13101,
+          "count": 339,
+          "material": 16,
+          "flags": 0,
+          "firstVertex": 3782,
+          "lastVertex": 3862
+        },
+        {
+          "start": 13440,
+          "count": 216,
+          "material": 25,
+          "flags": 0,
+          "firstVertex": 3863,
+          "lastVertex": 3937
+        }
+      ],
+      "bounds": {
+        "min": [
+          386.72015380859375,
+          -156.54367065429688,
+          -36.809329986572266
+        ],
+        "max": [
+          512.6179809570312,
+          -34.20244216918945,
+          15.679133415222168
+        ]
+      },
+      "collision": {
+        "position": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 0,
+          "count": 3938
+        },
+        "index": {
+          "type": "Uint32",
+          "itemSize": 1,
+          "byteOffset": 248964,
+          "count": 4548
+        },
+        "triangleFlags": {
+          "type": "Uint8",
+          "itemSize": 1,
+          "byteOffset": 277148,
+          "count": 1516
+        },
+        "bounds": {
+          "min": [
+            386.72015380859375,
+            -156.54367065429688,
+            -36.809329986572266
+          ],
+          "max": [
+            512.6179809570312,
+            -34.20244216918945,
+            15.679133415222168
+          ]
+        },
+        "triangleCount": 1516,
+        "policy": "(MOPY.flags & 0x08) || ((flags & 0x20) && !(flags & 0x04))"
+      },
+      "originalTriangleFlags": {
+        "type": "Uint8",
+        "itemSize": 1,
+        "byteOffset": 267156,
+        "count": 4995
+      },
+      "originalTriangleMaterials": {
+        "type": "Uint8",
+        "itemSize": 1,
+        "byteOffset": 272152,
+        "count": 4995
+      },
+      "vertexCount": 3938,
+      "triangleCount": 4995,
+      "rawVertexBGRA": {
+        "type": "Uint8",
+        "itemSize": 4,
+        "byteOffset": 173272,
+        "count": 3938
+      }
+    },
+    {
+      "id": "gate",
+      "kind": "m2",
+      "fileDataID": 203994,
+      "buffer": "gate.bin",
+      "attributes": {
+        "position": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 0,
+          "count": 168
+        },
+        "normal": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 2016,
+          "count": 168
+        },
+        "uv": {
+          "type": "Float32",
+          "itemSize": 2,
+          "byteOffset": 4032,
+          "count": 168
+        }
+      },
+      "index": {
+        "type": "Uint32",
+        "itemSize": 1,
+        "byteOffset": 5376,
+        "count": 672
+      },
+      "groups": [
+        {
+          "start": 0,
+          "count": 672,
+          "material": "gate:0"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -0.4242633581161499,
+          -8.912672996520996,
+          0.2121533900499344
+        ],
+        "max": [
+          0.4563216269016266,
+          8.731230735778809,
+          17.704132080078125
+        ]
+      },
+      "collision": {
+        "position": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 8064,
+          "count": 8
+        },
+        "index": {
+          "type": "Uint32",
+          "itemSize": 1,
+          "byteOffset": 8160,
+          "count": 36
+        },
+        "normal": {
+          "type": "Float32",
+          "itemSize": 3,
+          "byteOffset": 8304,
+          "count": 12
+        },
+        "bounds": {
+          "min": [
+            -0.4858890175819397,
+            -9.039152145385742,
+            0.0
+          ],
+          "max": [
+            0.4903678894042969,
+            8.826350212097168,
+            17.72882652282715
+          ]
+        },
+        "triangleCount": 12,
+        "policy": "Dedicated, unmodified MD21 collision positions and indices"
+      },
+      "vertexCount": 168,
+      "triangleCount": 224,
+      "skinFileDataID": 508777,
+      "pose": "Unmodified base pose, closed gate; no animation applied"
+    }
+  ],
+  "materials": [
+    {
+      "id": 3,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127395,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127395.png"
+    },
+    {
+      "id": 6,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129870,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129870.png"
+    },
+    {
+      "id": 7,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129874,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129874.png"
+    },
+    {
+      "id": 8,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127853,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127853.png"
+    },
+    {
+      "id": 9,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127844,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127844.png"
+    },
+    {
+      "id": 10,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129220,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129220.png"
+    },
+    {
+      "id": 11,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129877,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129877.png"
+    },
+    {
+      "id": 12,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129221,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129221.png"
+    },
+    {
+      "id": 13,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129875,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129875.png"
+    },
+    {
+      "id": 14,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127391,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127391.png"
+    },
+    {
+      "id": 15,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127845,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127845.png"
+    },
+    {
+      "id": 16,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129878,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129878.png"
+    },
+    {
+      "id": 17,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129219,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129219.png"
+    },
+    {
+      "id": 19,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129222,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129222.png"
+    },
+    {
+      "id": 21,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129881,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129881.png"
+    },
+    {
+      "id": 22,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129876,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129876.png"
+    },
+    {
+      "id": 23,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127393,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127393.png"
+    },
+    {
+      "id": 25,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129879,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129879.png"
+    },
+    {
+      "id": 29,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129224,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129224.png"
+    },
+    {
+      "id": 30,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127852,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127852.png"
+    },
+    {
+      "id": 35,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127849,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127849.png"
+    },
+    {
+      "id": 36,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 127850,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-127850.png"
+    },
+    {
+      "id": 37,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129225,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129225.png"
+    },
+    {
+      "id": 42,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129229,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129229.png"
+    },
+    {
+      "id": 54,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 128890,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4286545791,
+      "terrainType": 10,
+      "texture": "texture-128890.png"
+    },
+    {
+      "id": 71,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 191270,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-191270.png"
+    },
+    {
+      "id": 72,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129224,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129224.png"
+    },
+    {
+      "id": 73,
+      "flags": 0,
+      "shader": 0,
+      "blendMode": 0,
+      "textureFileDataID": 129222,
+      "emissiveBGRA": 4278190080,
+      "texture2": 0,
+      "diffuseBGRA": 4287993237,
+      "terrainType": 10,
+      "texture": "texture-129222.png"
+    },
+    {
+      "id": "gate:0",
+      "flags": 0,
+      "blendMode": 0,
+      "textureFileDataID": 204002,
+      "texture": "texture-204002.png"
+    }
+  ],
+  "textures": [
+    {
+      "fileDataID": 127391,
+      "file": "texture-127391.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "ec56f298998f5400952981e0333fc987e229bd938e9c432b2e56b1f6203f8b9c",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127393,
+      "file": "texture-127393.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "d16752a50949303ebcd0db5e5b592fa01fabf6300dee6f3308832dcd5a36f772",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127395,
+      "file": "texture-127395.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "7399cb1ba75fc7c76f9232d09b79742fe20bac55aa66e634b371a6bf3117e1d8",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127844,
+      "file": "texture-127844.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "1ce74d93ef9fc6a68bc03ec705d10d183d5a180fb8e76d2c2c0b96977f46f711",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127845,
+      "file": "texture-127845.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "b8cc405bf30c87884904036c8b10471617fc6938a600f81ef703525d0cbce6f6",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127849,
+      "file": "texture-127849.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "ca94139d2f71a4a0701e68320cf1e26c60a76a9140c7ae039aab580211996a7e",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127850,
+      "file": "texture-127850.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "5208ebca0671cf47f0b7b65f257bdb9d8fc46084c16020028c0b7c62be2c05bb",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127852,
+      "file": "texture-127852.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "00ebde441eb93cc97651c3cc78c9ea7bbb472d8dde676b875dcfcd9c5c7ee6b0",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 127853,
+      "file": "texture-127853.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "fb5335150c41f73e299a2736fb92fbf332e24345c8f5d6ca4c58900ec1885a5d",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 128890,
+      "file": "texture-128890.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "2853969754b017f7ea84a119b5059a0c373b43d742cc31dccafc1483f2e994cc",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129219,
+      "file": "texture-129219.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "9f84c11b064e806d51e96621b728faeedb8e3411efeb67995c0f40d787afb759",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129220,
+      "file": "texture-129220.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "f4420edefd6cbf85cde893e572562f7fb47a5fde84320258871074d23ef52adb",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129221,
+      "file": "texture-129221.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "7d90208dcc937baa45e181a09ea6932c5380ae3dee6a74909584741f9e40d0bd",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129222,
+      "file": "texture-129222.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "f4f7ef474f9dfa2dec770ba8a8dee030546ceb13b73680911de358b5ed2dd410",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129224,
+      "file": "texture-129224.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "6dfd38e9d386a1d61c43b03c23a98f184c7b3876d4979d3348bb3409f45d5435",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129225,
+      "file": "texture-129225.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "51e5df611f485d0e07f41c55c1956ba4a8cf39126fe1210ccec449bc83e57764",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129229,
+      "file": "texture-129229.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "4d82b535030177676b98abdef374f55f23587a5635b6aa72b2c4f3f9673c2970",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129870,
+      "file": "texture-129870.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "5f2fbc1be63307e4f5f3e1bc2df6bc8e03a37c5cca12c4a02450fca3c821050b",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129874,
+      "file": "texture-129874.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "1f7d138119c21a20db3e45aacfb5bfa0d286719bd77ab213fced2d3681898fe8",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129875,
+      "file": "texture-129875.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "1155e84f56f14afb5686a0e12936e8c7de1f15f4aefcbbde4e8ae48f0a42d614",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129876,
+      "file": "texture-129876.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "5e7ed5411562a5dd90cfe15f03a29405aaabc3e8dbfb17d79abc5693a493d8b0",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129877,
+      "file": "texture-129877.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "1b8e31ef5d1c0b0df32b3940207d0b523e59afb76094902da9a39d326dde5231",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129878,
+      "file": "texture-129878.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "1e598e41e9befbda4d927136aa78048255b49525441d125828d2311582c0b4a7",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129879,
+      "file": "texture-129879.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "dbafdc6cbadad2da3c14bd97f040d4a0f7c3093a39839595b23feea8fb5012da",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 129881,
+      "file": "texture-129881.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "da15ec1c43ebe570e6b0add1faffb15db3f978e617c7ad928b7e29d2b39ae117",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 191270,
+      "file": "texture-191270.png",
+      "width": 512,
+      "height": 512,
+      "sourceSHA256": "41e6a0995b5cc634001ae420c1396aa54f955352e99cb5cbef2d8fd24db1a8fe",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    },
+    {
+      "fileDataID": 204002,
+      "file": "texture-204002.png",
+      "width": 256,
+      "height": 256,
+      "sourceSHA256": "c13c56ecb81cf42db126286da03fee98abf00fd82cfe94a753b0d1da8081abdf",
+      "colorSpace": "sRGB",
+      "flipY": false,
+      "wrap": "repeat"
+    }
+  ],
+  "instances": [
+    {
+      "mesh": "wmo-17",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotationZ": 0,
+      "scale": 1
+    },
+    {
+      "mesh": "wmo-38",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotationZ": 0,
+      "scale": 1
+    },
+    {
+      "mesh": "gate",
+      "position": [
+        371.943203125,
+        -97.537421875,
+        -33.88832055664062
+      ],
+      "rotationZ": 3.141592653589793,
+      "scale": 0.790041
+    }
+  ],
+  "gatePlacement": {
+    "entry": 181125,
+    "display": 6676,
+    "scale": 0.790041,
+    "worldPosition": [
+      2633.84,
+      -3336.82,
+      267.084
+    ],
+    "worldOrientation": 0,
+    "wmoOriginWorld": [
+      3005.783203125,
+      -3434.357421875,
+      300.9723205566406
+    ],
+    "position": [
+      371.943203125,
+      -97.537421875,
+      -33.88832055664062
+    ],
+    "rotationZ": 3.141592653589793,
+    "precision": "Template/spawn reconstructed from CMaNGOS Classic DB; spawn coordinates rounded in source, not live Era measurements"
+  },
+  "provenance": {
+    "sourceFiles": [
+      {
+        "name": "1266277.blp",
+        "fileDataID": 1266277,
+        "bytes": 220947,
+        "sha256": "a9e072cbf966dda2e4e3bcaf740da830b129b2e17b0b91a8b520c44d6b67bc67"
+      },
+      {
+        "name": "127391.blp",
+        "fileDataID": 127391,
+        "bytes": 44876,
+        "sha256": "ec56f298998f5400952981e0333fc987e229bd938e9c432b2e56b1f6203f8b9c"
+      },
+      {
+        "name": "127393.blp",
+        "fileDataID": 127393,
+        "bytes": 44876,
+        "sha256": "d16752a50949303ebcd0db5e5b592fa01fabf6300dee6f3308832dcd5a36f772"
+      },
+      {
+        "name": "127395.blp",
+        "fileDataID": 127395,
+        "bytes": 44876,
+        "sha256": "7399cb1ba75fc7c76f9232d09b79742fe20bac55aa66e634b371a6bf3117e1d8"
+      },
+      {
+        "name": "127844.blp",
+        "fileDataID": 127844,
+        "bytes": 44876,
+        "sha256": "1ce74d93ef9fc6a68bc03ec705d10d183d5a180fb8e76d2c2c0b96977f46f711"
+      },
+      {
+        "name": "127845.blp",
+        "fileDataID": 127845,
+        "bytes": 44876,
+        "sha256": "b8cc405bf30c87884904036c8b10471617fc6938a600f81ef703525d0cbce6f6"
+      },
+      {
+        "name": "127849.blp",
+        "fileDataID": 127849,
+        "bytes": 44876,
+        "sha256": "ca94139d2f71a4a0701e68320cf1e26c60a76a9140c7ae039aab580211996a7e"
+      },
+      {
+        "name": "127850.blp",
+        "fileDataID": 127850,
+        "bytes": 44876,
+        "sha256": "5208ebca0671cf47f0b7b65f257bdb9d8fc46084c16020028c0b7c62be2c05bb"
+      },
+      {
+        "name": "127852.blp",
+        "fileDataID": 127852,
+        "bytes": 44876,
+        "sha256": "00ebde441eb93cc97651c3cc78c9ea7bbb472d8dde676b875dcfcd9c5c7ee6b0"
+      },
+      {
+        "name": "127853.blp",
+        "fileDataID": 127853,
+        "bytes": 44876,
+        "sha256": "fb5335150c41f73e299a2736fb92fbf332e24345c8f5d6ca4c58900ec1885a5d"
+      },
+      {
+        "name": "128890.blp",
+        "fileDataID": 128890,
+        "bytes": 44876,
+        "sha256": "2853969754b017f7ea84a119b5059a0c373b43d742cc31dccafc1483f2e994cc"
+      },
+      {
+        "name": "129219.blp",
+        "fileDataID": 129219,
+        "bytes": 44876,
+        "sha256": "9f84c11b064e806d51e96621b728faeedb8e3411efeb67995c0f40d787afb759"
+      },
+      {
+        "name": "129220.blp",
+        "fileDataID": 129220,
+        "bytes": 44876,
+        "sha256": "f4420edefd6cbf85cde893e572562f7fb47a5fde84320258871074d23ef52adb"
+      },
+      {
+        "name": "129221.blp",
+        "fileDataID": 129221,
+        "bytes": 44876,
+        "sha256": "7d90208dcc937baa45e181a09ea6932c5380ae3dee6a74909584741f9e40d0bd"
+      },
+      {
+        "name": "129222.blp",
+        "fileDataID": 129222,
+        "bytes": 44876,
+        "sha256": "f4f7ef474f9dfa2dec770ba8a8dee030546ceb13b73680911de358b5ed2dd410"
+      },
+      {
+        "name": "129224.blp",
+        "fileDataID": 129224,
+        "bytes": 44876,
+        "sha256": "6dfd38e9d386a1d61c43b03c23a98f184c7b3876d4979d3348bb3409f45d5435"
+      },
+      {
+        "name": "129225.blp",
+        "fileDataID": 129225,
+        "bytes": 44876,
+        "sha256": "51e5df611f485d0e07f41c55c1956ba4a8cf39126fe1210ccec449bc83e57764"
+      },
+      {
+        "name": "129229.blp",
+        "fileDataID": 129229,
+        "bytes": 44876,
+        "sha256": "4d82b535030177676b98abdef374f55f23587a5635b6aa72b2c4f3f9673c2970"
+      },
+      {
+        "name": "129870.blp",
+        "fileDataID": 129870,
+        "bytes": 44876,
+        "sha256": "5f2fbc1be63307e4f5f3e1bc2df6bc8e03a37c5cca12c4a02450fca3c821050b"
+      },
+      {
+        "name": "129874.blp",
+        "fileDataID": 129874,
+        "bytes": 44876,
+        "sha256": "1f7d138119c21a20db3e45aacfb5bfa0d286719bd77ab213fced2d3681898fe8"
+      },
+      {
+        "name": "129875.blp",
+        "fileDataID": 129875,
+        "bytes": 44876,
+        "sha256": "1155e84f56f14afb5686a0e12936e8c7de1f15f4aefcbbde4e8ae48f0a42d614"
+      },
+      {
+        "name": "129876.blp",
+        "fileDataID": 129876,
+        "bytes": 44876,
+        "sha256": "5e7ed5411562a5dd90cfe15f03a29405aaabc3e8dbfb17d79abc5693a493d8b0"
+      },
+      {
+        "name": "129877.blp",
+        "fileDataID": 129877,
+        "bytes": 44876,
+        "sha256": "1b8e31ef5d1c0b0df32b3940207d0b523e59afb76094902da9a39d326dde5231"
+      },
+      {
+        "name": "129878.blp",
+        "fileDataID": 129878,
+        "bytes": 44876,
+        "sha256": "1e598e41e9befbda4d927136aa78048255b49525441d125828d2311582c0b4a7"
+      },
+      {
+        "name": "129879.blp",
+        "fileDataID": 129879,
+        "bytes": 44876,
+        "sha256": "dbafdc6cbadad2da3c14bd97f040d4a0f7c3093a39839595b23feea8fb5012da"
+      },
+      {
+        "name": "129881.blp",
+        "fileDataID": 129881,
+        "bytes": 44876,
+        "sha256": "da15ec1c43ebe570e6b0add1faffb15db3f978e617c7ad928b7e29d2b39ae117"
+      },
+      {
+        "name": "191270.blp",
+        "fileDataID": 191270,
+        "bytes": 175948,
+        "sha256": "41e6a0995b5cc634001ae420c1396aa54f955352e99cb5cbef2d8fd24db1a8fe"
+      },
+      {
+        "name": "204002.blp",
+        "fileDataID": 204002,
+        "bytes": 44876,
+        "sha256": "c13c56ecb81cf42db126286da03fee98abf00fd82cfe94a753b0d1da8081abdf"
+      },
+      {
+        "name": "508777.blp",
+        "fileDataID": 508777,
+        "bytes": 2512,
+        "sha256": "f7dca29c747d738573aae45c5c693bb6d2f76ccb592bf3bae28b50bdbc103878"
+      },
+      {
+        "name": "825038.blp",
+        "fileDataID": 825038,
+        "bytes": 14772,
+        "sha256": "e74e0558af777461945289a1ea714db251064415ec8542a4e4548f43aa6a64c9"
+      },
+      {
+        "name": "827115.blp",
+        "fileDataID": 827115,
+        "bytes": 163908,
+        "sha256": "b736e4117fdb9b39375fd013bb7bb00542a712a51f77a5f6796307b8b363dd0f"
+      },
+      {
+        "name": "nox_door_portcullis.m2",
+        "fileDataID": 203994,
+        "bytes": 10482,
+        "sha256": "124852a95c0e4efe5bf15d51b764236804f7a7fc7f79e821b74e08fac03a93a8"
+      },
+      {
+        "name": "stratholme_raid.wmo",
+        "fileDataID": 110251,
+        "bytes": 186292,
+        "sha256": "19c1431591b5809a6fe8a3d4a88aeb96c2362ba367de304750812adbf63139a9"
+      },
+      {
+        "name": "stratholme_raid_017.wmo",
+        "fileDataID": 110269,
+        "bytes": 597176,
+        "sha256": "e7ce9b6b2853b2681d7c21c245c1b975cb37b180bca11e1c0bf8431ae5730d32"
+      },
+      {
+        "name": "stratholme_raid_038.wmo",
+        "fileDataID": 110290,
+        "bytes": 232842,
+        "sha256": "a4ad9b8dd3acf0d4f96d1cf8bc8e768d4703b4bfe51726dd8e357685d4939836"
+      }
+    ],
+    "formatReferences": [
+      "https://github.com/Kruithne/wow.export/blob/c2fd7bde36a712be78a5da896c995b84fbfa2545/src/js/3D/loaders/WMOLoader.js",
+      "https://github.com/Kruithne/wow.export/blob/c2fd7bde36a712be78a5da896c995b84fbfa2545/src/js/3D/loaders/M2Loader.js",
+      "https://github.com/Kruithne/wow.export/blob/c2fd7bde36a712be78a5da896c995b84fbfa2545/src/js/3D/Skin.js",
+      "https://github.com/vmangos/core/blob/53d24d5c748bef5e0cde7b1155bcb3d979af614c/contrib/vmap_extractor/vmapextract/wmo.cpp",
+      "https://github.com/cmangos/classic-db/blob/ec4f596146be6467ea93c57397858e329e2db852/Updates/Instances/533_naxxramas.sql"
+    ],
+    "geometry": "Original vertices and triangle indices retained; no welding, decimation, or guessed collision boxes",
+    "scope": "Gothik exit approach, gate and adjacent hallway; no client archives included"
+  }
+}

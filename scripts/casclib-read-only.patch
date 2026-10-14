@@ -1,0 +1,9 @@
+diff --git a/src/CascFiles.cpp b/src/CascFiles.cpp
+--- a/src/CascFiles.cpp
++++ b/src/CascFiles.cpp
+@@ -525 +525 @@
+-    LPDWORD PtrBuildNumber = (LPDWORD)(pvParam);
++    PDWORD PtrBuildNumber = (PDWORD)(pvParam);
+@@ -1172 +1172 @@
+-    if((pStream = FileStream_OpenFile(szFileName, 0)) != NULL)
++    if((pStream = FileStream_OpenFile(szFileName, STREAM_FLAG_READ_ONLY)) != NULL)

@@ -1,0 +1,11 @@
+{
+  "name": "gothik-gate-practice",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Classic Era Gothik gate jump calibration prototype",
+  "scripts": {
+    "dev": "python3 -m http.server 8768 --bind 127.0.0.1 --directory docs",
+    "check": "node --check docs/game.js && node --check docs/physics.js"
+  }
+}
